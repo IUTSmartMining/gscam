@@ -302,7 +302,7 @@ void GSCam::publish_stream()
     // This should block until a new frame is awake, this way, we'll run at the
     // actual capture framerate of the device.
     // RCLCPP_DEBUG(get_logger(), "Getting data...");
-    GstSample * sample = gst_app_sink_pull_sample(GST_APP_SINK(sink_));
+    GstSample * sample = gst_app_sink_try_pull_sample(GST_APP_SINK(sink_), GstClockTime(3 * 1e9));
     if (!sample) {
       RCLCPP_ERROR(get_logger(), "Could not get gstreamer sample.");
       break;
